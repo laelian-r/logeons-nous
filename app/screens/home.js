@@ -1,66 +1,113 @@
-import { StyleSheet, View, FlatList, Text, ImageBackground } from 'react-native';
+import { StyleSheet, ScrollView, View, FlatList, Text, ImageBackground } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import houseList from '@/assets/data/data-apartments.json';
 
 const home = () => {
     return (
-        <View style={styles.body}>
+        <ScrollView>
+            <View style={styles.body}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Découvrir</Text>
-                <AntDesign name="search1" size={30} />
-            </View>
+                    <Text style={styles.headerText}>Découvrir</Text>
+                    <AntDesign name="search1" size={30} />
+                </View>
 
-            <FlatList 
-             data={houseList} 
-             horizontal 
-             contentContainerStyle={{gap: 20}} 
-            //  keyExtractor={
-            //     (item) => item.cover_image_url.toLowerCase().toString() + 
-            //     Math.floor(Math.random() * 1000)
-            //  } 
-             renderItem={({item}) => 
-                <View style={styles.articleContainer}>
-                    <ImageBackground 
-                     source={{
-                        uri: item.cover_image_url
-                     }} 
-                     style={styles.articleImage}
-                    >
+                <FlatList 
+                data={houseList} 
+                horizontal 
+                style={styles.flatList}
+                contentContainerStyle={{gap: 20}} 
+                //  keyExtractor={
+                //     (item) => item.cover_image_url.toLowerCase().toString() + 
+                //     Math.floor(Math.random() * 1000)
+                //  } 
+                renderItem={({item}) => 
+                    <View style={styles.article}>
+                        <ImageBackground 
+                        source={{
+                            uri: item.cover_image_url
+                        }} 
+                        style={styles.articleImage}
+                        >
 
-                        <View style={styles.tagContainer}>
-                            <View style={styles.tag}>
-                                <Text style={styles.tagText}>Nouveau</Text>
+                            <View style={styles.tagContainer}>
+                                <View style={styles.tag}>
+                                    <Text style={styles.tagText}>Nouveau</Text>
+                                </View>
+                            </View>
+
+                        </ImageBackground>
+
+                        <View style={styles.infosLocation}>
+                            <Text style={styles.location}>{item.location_city}</Text>
+                            <View style={styles.articleLabels}>
+                                <AntDesign name="star" size={24} color="#fe9379" />
+                                <Text>5.0</Text>
                             </View>
                         </View>
 
-                    </ImageBackground>
-
-                    <View style={styles.infosLocation}>
-                        <Text style={styles.location}>{item.location_city}</Text>
-                        <View style={styles.articleLabels}>
-                            <AntDesign name="star" size={24} color="#fe9379" />
-                            <Text>5.0</Text>
+                        <View style={styles.infosLocation}>
+                            <Text style={styles.price}>{item.month_price}€ / mois</Text>
+                            <View style={styles.articleLabels}>
+                                <AntDesign name="user" size={24} color="#fe9379" />
+                                <Text>3 visiteurs</Text>
+                            </View>
                         </View>
                     </View>
+                } />
 
-                    <View style={styles.infosLocation}>
-                        <Text style={styles.price}>{item.month_price}€ / mois</Text>
-                        <View style={styles.articleLabels}>
-                            <AntDesign name="user" size={24} color="#fe9379" />
-                            <Text>3 visiteurs</Text>
-                        </View>
-                    </View>
+
+
+                <View style={styles.owner}>
+                    <Text style={styles.ownerText}>Nos meilleurs propriétaires</Text>
                 </View>
-            } />
-        </View>
+
+                <FlatList 
+                data={houseList} 
+                horizontal 
+                style={styles.flatList}
+                contentContainerStyle={{gap: 20}} 
+                //  keyExtractor={
+                //     (item) => item.cover_image_url.toLowerCase().toString() + 
+                //     Math.floor(Math.random() * 1000)
+                //  } 
+                renderItem={({item}) => 
+                    <View style={styles.article}>
+                        <ImageBackground 
+                        source={{
+                            uri: item.cover_image_url
+                        }} 
+                        style={styles.articleImage}
+                        >
+                        </ImageBackground>
+
+                        <View style={styles.infosLocation}>
+                            <Text style={styles.location}>{item.location_city}</Text>
+                            <View style={styles.articleLabels}>
+                                <AntDesign name="star" size={24} color="#fe9379" />
+                                <Text>5.0</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.infosLocation}>
+                            <Text style={styles.price}>{item.month_price}€ / mois</Text>
+                            <View style={styles.articleLabels}>
+                                <AntDesign name="user" size={24} color="#fe9379" />
+                                <Text>3 visiteurs</Text>
+                            </View>
+                        </View>
+                    </View>
+                } />
+            </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     body: {
-        marginHorizontal: 15,
+        paddingHorizontal: 15,
         display: 'flex',
-        gap: 20,
+        gap: 15,
+        paddingBottom: 25,
     },
 
     header: {
@@ -75,7 +122,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
 
-    articleContainer: {
+    flatList: {
+        paddingVertical: 15,
+    },
+
+    article: {
         display: 'flex',
         gap: 10,
     },
@@ -83,7 +134,7 @@ const styles = StyleSheet.create({
     articleImage: {
         height: 200,
         width: 300,
-        borderRadius: 30,
+        borderRadius: 20,
         overflow: 'hidden',
         padding: 15,
     },
@@ -130,6 +181,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(243,243,243,255)',
         padding: 10,
         borderRadius: 5,
+    },
+
+    owner: {
+        // marginTop: 50,
+    },
+
+    ownerText: {
+        fontSize: 25,
     },
 });
 
