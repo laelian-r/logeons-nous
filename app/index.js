@@ -1,11 +1,16 @@
-import { View, Text } from "react-native";
+import { Redirect } from "expo-router";
 
 const page = () => {
-    return (
-        <View>
-            <Text>Ceci est un texte</Text>
-        </View>
-    );
+    return <Redirect href={"/screens/home"} />;
 };
 
 export default page;
+
+
+/*
+
+    => 2 pages
+    - Accueil
+    - Détail des maisons
+
+*/
